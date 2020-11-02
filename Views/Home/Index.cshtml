@@ -1,8 +1,10 @@
-﻿@{
+﻿@model List<Nota>
+@{
     ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
+    <h1 class="display-4">Mis notas</h1>
+    <p>Tengo @Model.Count notas</p>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
