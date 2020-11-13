@@ -26,7 +26,17 @@ namespace Notas.Controllers
             return View(db.Nota.ToList());
         }
 
+        public IActionResult Contact()
+        {
+            return View();
+        } 
+
         public IActionResult Privacy()
+        {
+            return View();
+        }
+
+        public IActionResult VistaConOtroLayout()
         {
             return View();
         }
