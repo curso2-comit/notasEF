@@ -48,14 +48,42 @@ namespace Notas.Controllers
 
         public JsonResult CrearNota(string titulo, string texto)
         {
-            Nota nuevaNota = new Nota{
-                Titulo = titulo,
-                Cuerpo = texto
+            Usuario usuario = HttpContext.Session.Get<Usuario>("UsuarioLogueado");
+            if(usuario != null)
+            {       
+                Usuario usuarioBase = db.Usuario.FirstOrDefault(u => u.Mail.Equals(usuario.Mail));
+                Nota nuevaNota = new Nota{
+                    Titulo = titulo,
+                    Cuerpo = texto,
+                    Creador = usuarioBase
+                };
+
+                db.Nota.Add(nuevaNota);
+                db.SaveChanges();
+                return Json(nuevaNota);
+            }
+            else
+            {
+                return Json("No te dejo agregar la nota porque no estás logueado.");
+            }
+            
+        }
+
+        public JsonResult AgregarUsuarioALaSession(string mail, string nombre)
+        {
+            Usuario nuevoUsuario = new Usuario{
+                Mail = mail, 
+                Nombre = nombre
             };
 
-            db.Nota.Add(nuevaNota);
-            db.SaveChanges();
-            return Json(nuevaNota);
+            HttpContext.Session.Set<Usuario>("UsuarioLogueado", nuevoUsuario);
+            return Json(nuevoUsuario);
+        }
+
+        public JsonResult ConsultarUsuarioEnSesion()
+        {
+            Usuario usuario = HttpContext.Session.Get<Usuario>("UsuarioLogueado");
+            return Json(usuario);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
