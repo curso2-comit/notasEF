@@ -13,6 +13,8 @@
                     $('#notas').append('<div>' +
                         '<h2>' + response[i].titulo + '</h2>' +
                         '<p>' + response[i].cuerpo + '</p>' +
+                        '<a href="/Notas/Editar/' + response[i].id +'">Editar</a><br>' +
+                        '<a href="/Notas/Eliminar/' + response[i].id +'">Eliminar</a>' +
                     '</div>');                    
                 }
                 //agregamos botón de nueva nota
